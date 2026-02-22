@@ -299,8 +299,10 @@ function buildCombinedRecommendation(opts: {
     comorbiditiesSelected,
   } = opts;
 
-  const selected = comorbiditiesSelected.filter((c) => c !== "none");
-  const has = (c: Comorbidity) => selected.includes(c);
+const selected = comorbiditiesSelected.filter(
+  (c): c is Exclude<Comorbidity, "none"> => c !== "none"
+);
+const has = (c: Exclude<Comorbidity, "none">) => selected.includes(c);
 
   const notes: string[] = [];
   const conflicts: string[] = [];
